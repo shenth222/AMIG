@@ -17,19 +17,20 @@ bart_models = ["facebook/mbart-large-50", 'facebook/bart-large']
 ALL_MODELS = BERT_MODELS + GPT2_MODELS + GPT_NEO_MODELS + bart_models
 
 
-def initialize_model_and_tokenizer(model_name: str):
+def initialize_model_and_tokenizer(model_name: str, model_path):
+    if model_path is None: model_path = model_name
     if model_name in BERT_MODELS:
-        tokenizer = BertTokenizer.from_pretrained(model_name)
-        model = BertLMHeadModel.from_pretrained(model_name)
+        tokenizer = BertTokenizer.from_pretrained(model_path)
+        model = BertLMHeadModel.from_pretrained(model_path)
     elif model_name in GPT2_MODELS:
-        tokenizer = GPT2Tokenizer.from_pretrained(model_name)
-        model = GPT2LMHeadModel.from_pretrained(model_name)
+        tokenizer = GPT2Tokenizer.from_pretrained(model_path)
+        model = GPT2LMHeadModel.from_pretrained(model_path)
     elif model_name in GPT_NEO_MODELS:
-        tokenizer = GPT2Tokenizer.from_pretrained(model_name)
-        model = GPTNeoForCausalLM.from_pretrained(model_name)
+        tokenizer = GPT2Tokenizer.from_pretrained(model_path)
+        model = GPTNeoForCausalLM.from_pretrained(model_path)
     elif model_name in bart_models:
-        tokenizer = AutoTokenizer.from_pretrained(model_name)
-        model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+        tokenizer = AutoTokenizer.from_pretrained(model_path)
+        model = AutoModelForSeq2SeqLM.from_pretrained(model_path)
         # model = AutoModel.from_pretrained(model_name)
     else:
         raise ValueError("Model {model_name} not supported")

@@ -37,6 +37,12 @@ if __name__ == "__main__":
         # default='gpt2',
         help=f"name of the LM to use - choose from {ALL_MODELS}",
     )
+    parser.add_argument(
+        "--model_path",
+        type=str,
+        default=None,
+        help=f"Local path of the LM to use - choose from {ALL_MODELS}",
+    )
 
     parser.add_argument('--pararel_json', type=str,
                         default='datasets/correspond_dataset/zh.json')
@@ -114,7 +120,7 @@ if __name__ == "__main__":
     RESULTS = {}
     NEURONS = {}
     # setup model + tokenizer
-    model, tokenizer = initialize_model_and_tokenizer(args.model_name)
+    model, tokenizer = initialize_model_and_tokenizer(args.model_name, args.model_path)
     # if args.garns_ablation == 'wo_random':
     #     from knowledge_neurons.ablation.garns_wo_random import garns
     # elif args.garns_ablation == 'wo_distill':
